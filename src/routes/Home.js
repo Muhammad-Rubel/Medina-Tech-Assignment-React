@@ -1,69 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+// import axios from "axios";
+import { useState } from "react";
 import PostList from "../components/PostList";
 // import useFetch from "../hooks/useFetch";
-// import usePosts from "../hooks/usePosts";
+import usePosts from "../hooks/usePosts";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [posts, setPosts] = useState([]);
-  const [isPending, setIsPending] = useState([]);
-  const [error, setError] = useState([]);
 
-  // const { data, isPending, error } = useFetch(
-  //   `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${currentPage}`
-  // );
-
-  // const { data, isPending, error } = usePosts();
-
-  // const posts = data && data.hits && data.hits;
-
-  const getData = async () => {
-    try {
-      const res = await axios.get(
-        `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${currentPage}`
-      );
-
-      console.log(res);
-
-      if (res) {
-        setPosts([...posts, ...res.data.hits]);
-        setIsPending(false);
-        setError(null);
-      }
-    } catch (err) {
-      setIsPending(false);
-      setError(err.message);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-    // fetch(
-    //   `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${currentPage}`
-    // )
-    //   .then((res) => {
-    //     if (!res.ok) {
-    //       throw Error("Could not fetch data");
-    //     }
-
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     setPosts([...posts, ...data.hits]);
-    //     setIsPending(false);
-    //     setError(null);
-    //   })
-    //   .catch((err) => {
-    //     setIsPending(false);
-    //     setError(err.message);
-    //   });
-  }, [currentPage]);
-
-  // setInterval(() => {
-  //   setCurrentPage((old) => old + 1);
-  //   console.log(currentPage);
-  // }, 10000);
+  const { data, isPending, error } = usePosts();
 
   const handleLoadMore = () => {
     setCurrentPage((old) => old + 1);
@@ -75,7 +19,7 @@ const Home = () => {
       {isPending && <div>Loading....</div>}
       {error && <div>{error}</div>}
 
-      {posts && <PostList posts={posts} />}
+      {data && <PostList posts={data} />}
 
       <button onClick={handleLoadMore}>Load More</button>
     </div>
