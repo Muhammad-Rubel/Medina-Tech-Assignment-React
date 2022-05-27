@@ -10,24 +10,25 @@ const PostList = ({ posts }) => {
       <table id="post-list" className="text-sm border-collapse border w-full">
         <thead className="bg-gray-800 text-white border border-gray-800">
           <tr className="">
-            <th>Sl. no</th>
-            <th>Date</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Url</th>
+            <th className="w-72">Sl. no</th>
+            <th className="w-72">Date</th>
+            <th className="w-72">Title</th>
+            <th className="w-72">Author</th>
+            <th className="w-72">Url</th>
           </tr>
         </thead>
 
         <tbody>
           {posts.map((item, i) => (
             <tr key={i} className="odd:bg-slate-100 cursor-pointer">
-              <td>{i + 1}</td>
-              <td className="whitespace-nowrap">
+              {/* onClick={() => (window.location.href = item.url)} */}
+              <td className="w-72">{i + 1}</td>
+              <td className="whitespace-nowrap w-72">
                 {formatDate(item.created_at)}
               </td>
-              <td>{item.title}</td>
-              <td>{item.author}</td>
-              <td>{item.url}</td>
+              <td className="w-72">{item.title}</td>
+              <td className="w-72">{item.author}</td>
+              <td className="w-72">{item.url}</td>
             </tr>
           ))}
         </tbody>
